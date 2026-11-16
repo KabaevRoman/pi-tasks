@@ -23,10 +23,12 @@ test('startup marks orphaned job records interrupted',async t=>{
 });
 test('todo UI updates with progress and clears after deletion',async t=>{
  const h=await harness(install);t.after(()=>h.close());
- let widget:string[]|undefined;h.ctx.ui.setWidget=(key:string,lines:string[]|undefined)=>{assert.equal(key,'compat-todos');widget=lines;};
+ const theme={fg:(_color:string,text:string)=>text,bold:(text:string)=>text};
+ let widget:any;h.ctx.ui.setWidget=(key:string,content:any)=>{assert.equal(key,'compat-todos');widget=content;};
+ const lines=()=>typeof widget==='function'?widget({},theme).render(80).join('\n'):undefined;
  h.runtime.status(h.ctx);assert.equal(widget,undefined);
  const result=await h.call('TodoWrite',{todos:[{content:'Build UI',activeForm:'Building UI',status:'in_progress'}]});
- assert.match(result.content[0].text,/→ #1 Build UI/);assert.match(widget!.join('\n'),/0\/1 completed/);
- await h.call('TaskUpdate',{taskId:'1',status:'completed'});assert.match(widget!.join('\n'),/✓ #1 Build UI/);assert.match(widget!.join('\n'),/1\/1 completed/);
+ assert.match(result.content[0].text,/→ #1 Build UI/);assert.match(lines()!,/0\/1 completed/);assert.match(lines()!,/▶ #1 Build UI/);
+ await h.call('TaskUpdate',{taskId:'1',status:'completed'});assert.match(lines()!,/☑ #1 Build UI/);assert.match(lines()!,/1\/1 completed/);
  await h.call('TaskUpdate',{taskId:'1',status:'deleted'});assert.equal(widget,undefined);
 });
