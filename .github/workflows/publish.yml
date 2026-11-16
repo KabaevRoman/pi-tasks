@@ -1,0 +1,50 @@
+name: Publish to npm
+
+on:
+  push:
+    tags:
+      - '**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: npm-publish-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+      - name: Check tag matches package version
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFileSync, appendFileSync } from 'node:fs';
+          const { version } = JSON.parse(readFileSync('package.json', 'utf8'));
+          const tag = process.env.RELEASE_TAG;
+          if (tag !== version && tag !== `v${version}`) {
+            throw new Error(`Tag ${tag} must match package version ${version} (with optional v prefix)`);
+          }
+          appendFileSync(process.env.GITHUB_ENV, `NPM_DIST_TAG=${version.includes('-') ? 'next' : 'latest'}\n`);
+          NODE
+      # These repositories do not commit package-lock.json files.
+      - name: Install dependencies
+        run: npm install --no-package-lock
+      - name: Build
+        run: npm run build --if-present
+      - name: Typecheck
+        run: npm run typecheck --if-present
+      - name: Test
+        run: npm run test --if-present
+      - name: Publish
+        run: npm publish --access public --tag "$NPM_DIST_TAG"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
