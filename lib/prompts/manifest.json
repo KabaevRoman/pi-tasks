@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "repo": "Piebald-AI/claude-code-system-prompts",
+  "commit": "06a56c03bbd006278263aa380786ceb608f1fc23",
+  "target": "2.1.310",
+  "complete": false,
+  "fragments": [
+    {
+      "path": "original/agent-prompt-conversation-summarization.md",
+      "source": "system-prompts/agent-prompt-conversation-summarization.md",
+      "gitBlob": "89576f80b087738192ba6c04da0a9fbb3c24fe56",
+      "sha256": "257492d10a5a6960c22ff63a5af330041732233f6dfe17c51fcfd05a035b8219",
+      "bytes": 1106
+    },
+    {
+      "path": "original/agent-prompt-explore.md",
+      "source": "system-prompts/agent-prompt-explore.md",
+      "gitBlob": "30a2230f47bf130d00a41a84ed99c87d05cbfbaf",
+      "sha256": "b974ad721b9a0b7de94db9f96944d658ebd7868ef8a8ca48873d22504655a1b8",
+      "bytes": 2435
+    },
+    {
+      "path": "original/agent-prompt-plan-mode-enhanced.md",
+      "source": "system-prompts/agent-prompt-plan-mode-enhanced.md",
+      "gitBlob": "2286d8cda438fcfd5b6c39888554ccce9c1aa493",
+      "sha256": "b8390c9ea22bb6e221c0794fda9c4a1b84fd8d6794e5cb65f2fab07ea3291619",
+      "bytes": 3402
+    },
+    {
+      "path": "original/system-prompt-system-section.md",
+      "source": "system-prompts/system-prompt-system-section.md",
+      "gitBlob": "a88aed1bc4c9ff9fb3aa34f1c23e01aa82c901d0",
+      "sha256": "fee12a2dfc2544722c35fe03dec2c382b5c5a7206a131e6b9f26a5629e0caf8b",
+      "bytes": 538
+    },
+    {
+      "path": "original/system-reminder-plan-mode-is-active-5-phase.md",
+      "source": "system-prompts/system-reminder-plan-mode-is-active-5-phase.md",
+      "gitBlob": "ba6856f446636f2f43eb3508bc64741d66545828",
+      "sha256": "a59a093b2081038db6565c6558c440d3053247d9344fbb25b8bb0d86dd9a19d5",
+      "bytes": 1611
+    },
+    {
+      "path": "original/tool-description-edit.md",
+      "source": "system-prompts/tool-description-edit.md",
+      "gitBlob": "adf65b017984abed8300ffd4f95b58e77f2993b3",
+      "sha256": "31367ebeecd10f19c2888af6a082ee71b88748e9f104b625b65cfcc7c8db6a26",
+      "bytes": 1054
+    },
+    {
+      "path": "original/tool-description-exitplanmode.md",
+      "source": "system-prompts/tool-description-exitplanmode.md",
+      "gitBlob": "2e22459f60d974978d861f94aeae1ce01883c269",
+      "sha256": "fd953c514a17652cf0543b47a2e6551c5864cf72100023be74f369a94fd50c2e",
+      "bytes": 2115
+    },
+    {
+      "path": "original/tool-description-readfile.md",
+      "source": "system-prompts/tool-description-readfile.md",
+      "gitBlob": "6d9faf61ca9feab4f87cfcc12a125c959cbd1588",
+      "sha256": "ada12d2c826a899fad66d5fe63e7a72d27879e9510c553e1286f1770e3b8636e",
+      "bytes": 1849
+    }
+  ]
+}
