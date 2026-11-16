@@ -1,8 +1,8 @@
 import { mkdir,readdir,readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { randomUUID } from 'node:crypto';
-import { atomicWrite } from '@kabaevroman/pi-code-core/runtime/utils';
-import { runProcess } from '@kabaevroman/pi-code-core/backends/process';
+import { atomicWrite } from '@pi-ko/core/runtime/utils';
+import { runProcess } from '@pi-ko/core/backends/process';
 export interface Job {id:string;command:string;status:'running'|'completed'|'failed'|'stopped'|'interrupted';outputPath:string;exitCode?:number|null;error?:string}
 export class Jobs {
  private running=new Map<string,{controller:AbortController;done:Promise<void>}>();

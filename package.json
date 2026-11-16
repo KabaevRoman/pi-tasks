@@ -1,6 +1,6 @@
 {
-  "name": "@kabaevroman/pi-code-tasks",
-  "version": "0.6.4",
+  "name": "@pi-ko/tasks",
+  "version": "0.6.5",
   "type": "module",
   "keywords": [
     "pi-package"
@@ -26,17 +26,18 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "typescript": "5.9.3",
-    "@types/node": "22.19.19"
+    "@types/node": "22.19.19",
+    "typescript": "5.9.3"
   },
   "dependencies": {
-    "@kabaevroman/pi-code-core": "0.6.5"
+    "@pi-ko/core": "0.6.6"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/KabaevRoman/pi-tasks.git"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
   }
 }

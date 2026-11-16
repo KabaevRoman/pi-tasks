@@ -1,4 +1,4 @@
-name: Publish to GitHub Packages
+name: Publish to npm
 
 on:
   push:
@@ -7,7 +7,6 @@ on:
 
 permissions:
   contents: read
-  packages: write
 
 concurrency:
   group: npm-publish-${{ github.ref }}
@@ -21,8 +20,7 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: '22'
-          registry-url: https://npm.pkg.github.com
-          scope: '@kabaevroman'
+          registry-url: https://registry.npmjs.org
           package-manager-cache: false
       - name: Check tag matches package version
         env:
@@ -40,8 +38,6 @@ jobs:
       # These repositories do not commit package-lock.json files.
       - name: Install dependencies
         run: npm install --no-package-lock
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Build
         run: npm run build --if-present
       - name: Typecheck
@@ -49,6 +45,6 @@ jobs:
       - name: Test
         run: npm run test --if-present
       - name: Publish
-        run: npm publish --tag "$NPM_DIST_TAG"
+        run: npm publish --tag "$NPM_DIST_TAG" --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

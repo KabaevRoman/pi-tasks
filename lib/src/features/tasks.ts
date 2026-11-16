@@ -1,10 +1,10 @@
 import type { ExtensionAPI } from '@earendil-works/pi-coding-agent';
 import { Type } from 'typebox';
 import { join } from 'node:path';
-import { acquire } from '@kabaevroman/pi-code-core';
+import { acquire } from '@pi-ko/core';
 import { registerTasks } from '../extensions/tasks.ts';
 import { Jobs } from '../backends/jobs.ts';
-import { textResult, humanReadable, taskSummary } from '@kabaevroman/pi-code-core/runtime/utils';
+import { textResult, humanReadable, taskSummary } from '@pi-ko/core/runtime/utils';
 export default function(pi:ExtensionAPI):void{
  const state=acquire(pi,'tasks');if(!state)return;const r=state.runtime;registerTasks(r);
  let jobs:Jobs|undefined;
