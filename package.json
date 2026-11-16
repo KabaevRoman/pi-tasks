@@ -30,7 +30,7 @@
     "@types/node": "22.19.19"
   },
   "dependencies": {
-    "@kabaevroman/pi-code-core": "0.6.4"
+    "@kabaevroman/pi-code-core": "0.6.5"
   },
   "repository": {
     "type": "git",
