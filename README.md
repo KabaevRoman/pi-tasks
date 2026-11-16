@@ -1,6 +1,6 @@
 # @kabaevroman/pi-code-tasks
 
-Independently installable pi extension: tasks. Former package name: `pi-claude-tasks`.
+Independently installable pi extension: tasks.
 
 This extension depends on `@kabaevroman/pi-code-core@0.5.0`; it does not require any other extension.
 

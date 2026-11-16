@@ -8,7 +8,7 @@ export async function harness(install:(pi:ExtensionAPI)=>void){
  const pi:any={events:{emit:(name:string,data:any)=>{for(const fn of listeners.get(name)??[])fn(data);},on:(name:string,fn:any)=>{listeners.set(name,[...(listeners.get(name)??[]),fn]);return ()=>{};}},
   on:(name:string,fn:any)=>{handlers.set(name,[...(handlers.get(name)??[]),fn]);return ()=>{};},registerTool:(tool:any)=>tools.set(tool.name,tool),registerCommand:(name:string,value:any)=>commands.set(name,value),
   appendEntry:(customType:string,data:any)=>entries.push({type:'custom',customType,data:structuredClone(data)}),sendMessage:()=>{},getActiveTools:()=>['read','bash'],getAllTools:()=>[]};
- install(pi);let runtime:any;pi.events.emit('pi-claude-compat:runtime:v2',{accept:(s:any)=>runtime=s.runtime});
+ install(pi);let runtime:any;pi.events.emit('pi-code-compat:runtime:v2',{accept:(s:any)=>runtime=s.runtime});
  const ctx:any={model:{provider:'mock',id:'mock'},cwd:root,hasUI:true,mode:'tui',isProjectTrusted:()=>true,getSystemPrompt:()=> 'Test assistant',sessionManager:{getBranch:()=>entries,getSessionId:()=> 'test'},ui:{select:async()=>answers.shift()??'Allow once',setStatus:()=>{},notify:()=>{}}};
  runtime.store=join(root,'.runtime');runtime.cwd=root;runtime.ready=true;
  runtime.reload=async()=>{runtime.config={permissions:{allow:[],deny:[],ask:[]},hooks:{},provenance:{},diagnostics:[]};};await runtime.reload();
