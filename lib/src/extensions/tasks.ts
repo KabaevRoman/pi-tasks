@@ -1,8 +1,8 @@
 import { Type } from 'typebox';
-import type { Runtime } from 'pi-code-core/runtime/runtime';
-import type { Task } from 'pi-code-core/runtime/state';
-import { object } from 'pi-code-core/runtime/schema';
-import { textResult } from 'pi-code-core/runtime/utils';
+import type { Runtime } from '@kabaevroman/pi-code-core/runtime/runtime';
+import type { Task } from '@kabaevroman/pi-code-core/runtime/state';
+import { object } from '@kabaevroman/pi-code-core/runtime/schema';
+import { textResult } from '@kabaevroman/pi-code-core/runtime/utils';
 const id = () => Type.String({ pattern: '^[1-9][0-9]*$' });
 const status = () => Type.Union([Type.Literal('pending'),Type.Literal('in_progress'),Type.Literal('completed')]);
 export function validateGraph(tasks: Record<string, Task>): void {
