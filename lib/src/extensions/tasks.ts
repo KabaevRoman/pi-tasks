@@ -18,7 +18,10 @@ export function validateGraph(tasks: Record<string, Task>): void {
 export function registerTasks(runtime: Runtime): void {
   runtime.register(object({todos:Type.Array(object({content:Type.String({minLength:1}),activeForm:Type.String(),status:status()}),{maxItems:100})}),'TodoWrite','Replace the current todo list with durable task items. Existing dependency graphs are replaced explicitly.',true,async input=>{
     const tasks:Record<string,Task>={};
-    for(const todo of input.todos){const id=String(runtime.state.nextTask++);tasks[id]={id,subject:todo.content,description:todo.content,activeForm:todo.activeForm,status:todo.status,blockedBy:[],blocks:[]};}
+    // Ids restart at 1 on every call so TodoWrite stays idempotent and diff-friendly.
+    let index=0;
+    for(const todo of input.todos){const id=String(++index);tasks[id]={id,subject:todo.content,description:todo.content,activeForm:todo.activeForm,status:todo.status,blockedBy:[],blocks:[]};}
+    runtime.state.nextTask=index+1;
     runtime.state.tasks=tasks;runtime.persist();return textResult(taskSummary(Object.values(tasks)),{tasks});
   });
   runtime.register(object({ subject: Type.String({ minLength: 1 }), description: Type.String(), activeForm: Type.Optional(Type.String()), metadata: Type.Optional(Type.Record(Type.String(), Type.Unknown())) }), 'TaskCreate', 'Create a durable session-branch work item. Work items are distinct from processes and subagents.', true, async input => {

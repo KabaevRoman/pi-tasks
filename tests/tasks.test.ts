@@ -28,7 +28,13 @@ test('todo UI updates with progress and clears after deletion',async t=>{
  const lines=()=>typeof widget==='function'?widget({},theme).render(80).join('\n'):undefined;
  h.runtime.status(h.ctx);assert.equal(widget,undefined);
  const result=await h.call('TodoWrite',{todos:[{content:'Build UI',activeForm:'Building UI',status:'in_progress'}]});
- assert.match(result.content[0].text,/→ #1 Build UI/);assert.match(lines()!,/0\/1 completed/);assert.match(lines()!,/▶ #1 Build UI/);
- await h.call('TaskUpdate',{taskId:'1',status:'completed'});assert.match(lines()!,/☑ #1 Build UI/);assert.match(lines()!,/1\/1 completed/);
+ assert.match(result.content[0].text,/→ #1 Build UI/);assert.match(lines()!,/Tasks 0\/1/);assert.match(lines()!,/▶ Build UI/);
+ await h.call('TaskUpdate',{taskId:'1',status:'completed'});assert.match(lines()!,/✔ Build UI/);assert.match(lines()!,/Tasks 1\/1/);
  await h.call('TaskUpdate',{taskId:'1',status:'deleted'});assert.equal(widget,undefined);
+});
+test('TodoWrite renumbers items from 1 on every call',async t=>{
+ const h=await harness(install);t.after(()=>h.close());
+ await h.call('TodoWrite',{todos:[{content:'a',activeForm:'A',status:'pending'},{content:'b',activeForm:'B',status:'pending'}]});
+ const again=await h.call('TodoWrite',{todos:[{content:'c',activeForm:'C',status:'in_progress'}]});
+ assert.deepEqual(Object.keys(h.runtime.state.tasks),['1']);assert.equal(h.runtime.state.nextTask,2);assert.match(again.content[0].text,/→ #1 c/);
 });
